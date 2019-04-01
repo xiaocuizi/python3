@@ -1,10 +1,12 @@
 import os
 
-
 # 冰箱放食物Demo
-# 数据结构
-# {'海尔': ['苹果', '苹果', '苹果', '苹果', '小鸡', '小鸡', '小鸡'], '美菱': ['香蕉', '香蕉', '香蕉'], '晶弘': ['西瓜', '西瓜', '西瓜', '西瓜']}
-
+"""
+ 数据结构
+ {'海尔': ['苹果', '苹果', '苹果', '苹果', '鸡蛋', '鸡蛋', '鸡蛋'], 
+ '美菱': ['香蕉', '香蕉', '香蕉'], 
+'晶弘': ['西瓜', '西瓜', '西瓜', '西瓜']}
+"""
 class Refrigerator2:
     tup = {}
     order_list = {1: "查询食物", 2: "放入食物", 3: "取出食物"}
@@ -24,6 +26,7 @@ class Refrigerator2:
             else:
                 file = open(self.path, mode="r", encoding="utf-8")
                 for i in file:
+                    # 字符串转换为字典
                     self.tup = eval(i)
         # 判断name在tup中有没有
         if name not in self.tup:
@@ -35,7 +38,7 @@ class Refrigerator2:
             order_no = int(order_no)
         else:
             if __name__ == '__main__':
-               print("请输入正确的序号.....")
+                print("请输入正确的序号.....")
             return
 
         if order_no not in self.order_list:
@@ -90,9 +93,14 @@ class Refrigerator2:
                 self.save()
 
     def save(self):
-        file = open(self.path, mode="w", encoding="utf-8")
-        file.write(str(self.tup))
-        file.close()
+        try:
+            file = open(self.path, mode="w", encoding="utf-8")
+            file.write(str(self.tup))
+            file.close()
+        except IOError:
+            print("请重新尝试...")
+        finally:
+            file.close()
 
 
 # 初始化
