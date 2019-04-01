@@ -1,10 +1,13 @@
 import os
 
 # 冰箱放食物Demo
-# 数据结构
-# {'海尔': ['苹果', '苹果', '苹果', '苹果', '小鸡', '小鸡', '小鸡'], '美菱': ['香蕉', '香蕉', '香蕉'], '晶弘': ['西瓜', '西瓜', '西瓜', '西瓜']}
-
-class Refrigerator2:
+"""
+ 数据结构
+ {'海尔': ['苹果', '苹果', '苹果', '苹果', '鸡蛋', '鸡蛋', '鸡蛋'], 
+ '美菱': ['香蕉', '香蕉', '香蕉'], 
+'晶弘': ['西瓜', '西瓜', '西瓜', '西瓜']}
+"""
+class Refrigerator:
     tup = {}
     order_list = {1: "查询食物", 2: "放入食物", 3: "取出食物"}
     path = r"./regitry.txt"
@@ -13,7 +16,8 @@ class Refrigerator2:
         name = input("第一次使用冰箱，请输入名字：")
         # print("name=" + name)
         if len(name) == 0:
-            name = input("输入不能为空，请输入名字：")
+            # name = input("输入不能为空，请输入名字：")
+            self.__init__()
             # os.system('pause')
         else:
             #  读取文件
@@ -22,6 +26,7 @@ class Refrigerator2:
             else:
                 file = open(self.path, mode="r", encoding="utf-8")
                 for i in file:
+                    # 字符串转换为字典
                     self.tup = eval(i)
         # 判断name在tup中有没有
         if name not in self.tup:
@@ -29,12 +34,17 @@ class Refrigerator2:
         order_no = input("欢迎使用{}冰箱，请输入对应序号进行操作，1.查询冰箱食物，2.放入食物，3.取出食物 ：".format(name))
         if len(order_no) == 0:
             print("请输入正确的序号.....")
+        if order_no.isnumeric():
+            order_no = int(order_no)
+        else:
+            if __name__ == '__main__':
+                print("请输入正确的序号.....")
             return
 
-        order_no = int(order_no)
         if order_no not in self.order_list:
             print("请输入正确的序号.....")
             # os.system('pause')
+            return
         else:
             # 1 查询食物，2 放入食物  3 取出食物
             if order_no == 1:
@@ -83,10 +93,15 @@ class Refrigerator2:
                 self.save()
 
     def save(self):
-        file = open(self.path, mode="w", encoding="utf-8")
-        file.write(str(self.tup))
-        file.close()
+        try:
+            file = open(self.path, mode="w", encoding="utf-8")
+            file.write(str(self.tup))
+            file.close()
+        except IOError:
+            print("请重新尝试...")
+        finally:
+            file.close()
 
 
 # 初始化
-b = Refrigerator2()
+b = Refrigerator()
