@@ -26,6 +26,8 @@ print(c)
 print(c.size)
 print(c.ndim)
 print(c.shape)
+print("---shape------ones-------")
+print(c.shape[0])
 print("---zeros------ones-------")
 d = np.zeros((2, 3, 4), dtype=np.int8)  # 必须给出形状
 print(d)
